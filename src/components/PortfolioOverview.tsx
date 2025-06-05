@@ -4,12 +4,12 @@ import { TrendingUp, TrendingDown, DollarSign, Target } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 const portfolioData = [
-  { name: "Jan", value: 95000 },
-  { name: "Feb", value: 98000 },
-  { name: "Mar", value: 102000 },
-  { name: "Apr", value: 99000 },
-  { name: "May", value: 108000 },
-  { name: "Jun", value: 115000 },
+  { name: "Jan", value: 950000 },
+  { name: "Feb", value: 980000 },
+  { name: "Mar", value: 1020000 },
+  { name: "Apr", value: 990000 },
+  { name: "May", value: 1080000 },
+  { name: "Jun", value: 1150000 },
 ];
 
 export const PortfolioOverview = () => {
@@ -22,7 +22,7 @@ export const PortfolioOverview = () => {
             <DollarSign className="h-4 w-4 text-gray-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-white">$115,250</div>
+            <div className="text-2xl font-bold text-white">₹11,52,500</div>
             <p className="text-xs text-emerald-400 flex items-center">
               <TrendingUp className="h-3 w-3 mr-1" />
               +12.5% from last month
@@ -36,7 +36,7 @@ export const PortfolioOverview = () => {
             <TrendingUp className="h-4 w-4 text-emerald-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-400">+$2,340</div>
+            <div className="text-2xl font-bold text-emerald-400">+₹23,400</div>
             <p className="text-xs text-emerald-400">+2.08% today</p>
           </CardContent>
         </Card>

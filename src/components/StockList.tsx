@@ -5,12 +5,12 @@ import { Badge } from "@/components/ui/badge";
 import { TrendingUp, TrendingDown, Plus } from "lucide-react";
 
 const stocks = [
-  { symbol: "AAPL", name: "Apple Inc.", price: 175.43, change: +2.34, changePercent: +1.35, prediction: "BUY" },
-  { symbol: "GOOGL", name: "Alphabet Inc.", price: 142.56, change: -1.23, changePercent: -0.85, prediction: "HOLD" },
-  { symbol: "MSFT", name: "Microsoft Corp.", price: 378.85, change: +5.67, changePercent: +1.52, prediction: "BUY" },
-  { symbol: "TSLA", name: "Tesla Inc.", price: 248.50, change: -8.45, changePercent: -3.29, prediction: "SELL" },
-  { symbol: "AMZN", name: "Amazon.com Inc.", price: 134.12, change: +3.21, changePercent: +2.45, prediction: "BUY" },
-  { symbol: "NVDA", name: "NVIDIA Corp.", price: 875.30, change: +15.67, changePercent: +1.82, prediction: "STRONG BUY" },
+  { symbol: "RELIANCE", name: "Reliance Industries Ltd.", price: 2450.75, change: +45.30, changePercent: +1.88, prediction: "BUY" },
+  { symbol: "TCS", name: "Tata Consultancy Services", price: 3520.40, change: -32.15, changePercent: -0.90, prediction: "HOLD" },
+  { symbol: "INFY", name: "Infosys Limited", price: 1580.25, change: +28.50, changePercent: +1.84, prediction: "BUY" },
+  { symbol: "HDFCBANK", name: "HDFC Bank Limited", price: 1645.80, change: -15.60, changePercent: -0.94, prediction: "HOLD" },
+  { symbol: "ICICIBANK", name: "ICICI Bank Limited", price: 1125.30, change: +22.75, changePercent: +2.06, prediction: "BUY" },
+  { symbol: "ADANIPORTS", name: "Adani Ports & SEZ Ltd.", price: 785.60, change: +18.45, changePercent: +2.40, prediction: "STRONG BUY" },
 ];
 
 export const StockList = () => {
@@ -46,10 +46,10 @@ export const StockList = () => {
               
               <div className="flex items-center space-x-6">
                 <div className="text-right">
-                  <div className="text-white font-semibold">${stock.price}</div>
+                  <div className="text-white font-semibold">₹{stock.price}</div>
                   <div className={`text-sm flex items-center ${stock.change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                     {stock.change >= 0 ? <TrendingUp className="h-3 w-3 mr-1" /> : <TrendingDown className="h-3 w-3 mr-1" />}
-                    {stock.change >= 0 ? '+' : ''}{stock.change} ({stock.changePercent}%)
+                    {stock.change >= 0 ? '+' : ''}₹{stock.change} ({stock.changePercent}%)
                   </div>
                 </div>
                 

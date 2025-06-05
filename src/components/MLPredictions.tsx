@@ -6,11 +6,11 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { TrendingUp, Brain, Target } from "lucide-react";
 
 const predictionData = [
-  { name: "AAPL", confidence: 87, prediction: "BUY", targetPrice: 185.50 },
-  { name: "GOOGL", confidence: 72, prediction: "HOLD", targetPrice: 145.20 },
-  { name: "MSFT", confidence: 91, prediction: "BUY", targetPrice: 395.75 },
-  { name: "TSLA", confidence: 68, prediction: "SELL", targetPrice: 220.30 },
-  { name: "AMZN", confidence: 83, prediction: "BUY", targetPrice: 142.80 },
+  { name: "RELIANCE", confidence: 87, prediction: "BUY", targetPrice: 2650.50 },
+  { name: "TCS", confidence: 72, prediction: "HOLD", targetPrice: 3580.20 },
+  { name: "INFY", confidence: 91, prediction: "BUY", targetPrice: 1680.75 },
+  { name: "HDFCBANK", confidence: 68, prediction: "HOLD", targetPrice: 1720.30 },
+  { name: "ICICIBANK", confidence: 83, prediction: "BUY", targetPrice: 1250.80 },
 ];
 
 const modelPerformance = [
@@ -71,7 +71,7 @@ export const MLPredictions = () => {
                   </Badge>
                 </div>
                 <div className="text-right">
-                  <div className="text-white text-sm">Target: ${stock.targetPrice}</div>
+                  <div className="text-white text-sm">Target: ₹{stock.targetPrice}</div>
                   <div className="text-gray-400 text-xs">Confidence: {stock.confidence}%</div>
                 </div>
               </div>

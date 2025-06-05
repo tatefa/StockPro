@@ -7,9 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Trash2, TrendingUp, TrendingDown } from "lucide-react";
 
 const initialWatchlist = [
-  { symbol: "AAPL", name: "Apple Inc.", price: 175.43, change: +2.34, changePercent: +1.35 },
-  { symbol: "GOOGL", name: "Alphabet Inc.", price: 142.56, change: -1.23, changePercent: -0.85 },
-  { symbol: "MSFT", name: "Microsoft Corp.", price: 378.85, change: +5.67, changePercent: +1.52 },
+  { symbol: "RELIANCE", name: "Reliance Industries Ltd.", price: 2450.75, change: +45.30, changePercent: +1.88 },
+  { symbol: "TCS", name: "Tata Consultancy Services", price: 3520.40, change: -32.15, changePercent: -0.90 },
+  { symbol: "INFY", name: "Infosys Limited", price: 1580.25, change: +28.50, changePercent: +1.84 },
 ];
 
 export const Watchlist = () => {
@@ -21,9 +21,9 @@ export const Watchlist = () => {
       // Simulate adding a new stock with random data
       const newStock = {
         symbol: newSymbol.toUpperCase(),
-        name: `${newSymbol.toUpperCase()} Corporation`,
-        price: Math.random() * 500 + 50,
-        change: (Math.random() - 0.5) * 20,
+        name: `${newSymbol.toUpperCase()} Limited`,
+        price: Math.random() * 3000 + 100,
+        change: (Math.random() - 0.5) * 100,
         changePercent: (Math.random() - 0.5) * 5,
       };
       setWatchlist([...watchlist, newStock]);
@@ -44,7 +44,7 @@ export const Watchlist = () => {
         <CardContent>
           <div className="flex space-x-2">
             <Input
-              placeholder="Enter stock symbol (e.g., AAPL)"
+              placeholder="Enter stock symbol (e.g., RELIANCE)"
               value={newSymbol}
               onChange={(e) => setNewSymbol(e.target.value)}
               className="bg-slate-800 border-slate-700 text-white"
@@ -75,10 +75,10 @@ export const Watchlist = () => {
                 
                 <div className="flex items-center space-x-4">
                   <div className="text-right">
-                    <div className="text-white font-semibold">${stock.price.toFixed(2)}</div>
+                    <div className="text-white font-semibold">₹{stock.price.toFixed(2)}</div>
                     <div className={`text-sm flex items-center ${stock.change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                       {stock.change >= 0 ? <TrendingUp className="h-3 w-3 mr-1" /> : <TrendingDown className="h-3 w-3 mr-1" />}
-                      {stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)
+                      {stock.change >= 0 ? '+' : ''}₹{stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)
                     </div>
                   </div>
                   
