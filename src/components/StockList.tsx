@@ -1,9 +1,8 @@
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, TrendingDown, Plus } from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 import { StockChart } from "./StockChart";
 import { AddStockDialog } from "./AddStockDialog";
 import { stockService, Stock } from "@/services/stockService";
@@ -13,12 +12,8 @@ export const StockList = () => {
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
 
   useEffect(() => {
-    // Initial load
     setStocks(stockService.getStocks());
-
-    // Subscribe to real-time updates
     const unsubscribe = stockService.subscribe(setStocks);
-
     return unsubscribe;
   }, []);
 
@@ -37,15 +32,28 @@ export const StockList = () => {
   };
 
   const handleStockAdded = () => {
-    // Stock list will automatically update via subscription
     console.log("Stock added successfully");
+  };
+
+  const formatLastUpdated = (timestamp: string) => {
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString('en-IN', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      timeZone: 'Asia/Kolkata'
+    });
   };
 
   return (
     <>
       <Card className="bg-slate-900 border-slate-800">
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-white">Stock Watchlist</CardTitle>
+          <CardTitle className="text-white flex items-center">
+            Stock Watchlist
+            <Badge className="ml-2 bg-blue-600 text-white">
+              {stockService.getMarketStatus().isOpen ? 'LIVE' : 'CLOSED'}
+            </Badge>
+          </CardTitle>
           <AddStockDialog onStockAdded={handleStockAdded} />
         </CardHeader>
         <CardContent>
@@ -61,7 +69,7 @@ export const StockList = () => {
                     <div className="font-semibold text-white text-lg">{stock.symbol}</div>
                     <div className="text-sm text-gray-400">{stock.name}</div>
                     <div className="text-xs text-gray-500">
-                      Vol: {(stock.volume / 1000000).toFixed(2)}M | P/E: {stock.pe?.toFixed(1)}
+                      Vol: {(stock.volume / 1000000).toFixed(2)}M | P/E: {stock.pe?.toFixed(1)} | Last: {formatLastUpdated(stock.lastUpdated)}
                     </div>
                   </div>
                 </div>

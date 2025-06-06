@@ -1,25 +1,44 @@
 
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, TrendingDown, DollarSign, Target, AlertTriangle, Crown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { MarketStatus } from "./MarketStatus";
+import { stockService } from "@/services/stockService";
 
 export const DashboardInsights = () => {
+  const [stocks, setStocks] = useState(stockService.getStocks());
+
+  useEffect(() => {
+    const unsubscribe = stockService.subscribe(setStocks);
+    return unsubscribe;
+  }, []);
+
+  // Calculate insights based on real stock data
+  const topPerformer = stocks.reduce((prev, current) => 
+    (prev.changePercent > current.changePercent) ? prev : current
+  );
+
+  const gainers = stocks.filter(stock => stock.changePercent > 0).length;
+  const totalStocks = stocks.length;
+  const bullishPercent = ((gainers / totalStocks) * 100).toFixed(0);
+
   const insights = [
     {
       title: "Top Performer",
-      value: "ADANIPORTS",
-      detail: "+2.40% today",
+      value: topPerformer.symbol,
+      detail: `${topPerformer.changePercent > 0 ? '+' : ''}${topPerformer.changePercent.toFixed(2)}% today`,
       icon: Crown,
-      color: "text-emerald-400",
-      bgColor: "bg-emerald-600"
+      color: topPerformer.changePercent > 0 ? "text-emerald-400" : "text-red-400",
+      bgColor: topPerformer.changePercent > 0 ? "bg-emerald-600" : "bg-red-600"
     },
     {
       title: "Market Sentiment",
-      value: "Bullish",
-      detail: "65% stocks up",
-      icon: TrendingUp,
-      color: "text-emerald-400",
-      bgColor: "bg-emerald-600"
+      value: parseInt(bullishPercent) > 50 ? "Bullish" : "Bearish",
+      detail: `${bullishPercent}% stocks up`,
+      icon: parseInt(bullishPercent) > 50 ? TrendingUp : TrendingDown,
+      color: parseInt(bullishPercent) > 50 ? "text-emerald-400" : "text-red-400",
+      bgColor: parseInt(bullishPercent) > 50 ? "bg-emerald-600" : "bg-red-600"
     },
     {
       title: "Volatility Alert",
@@ -30,9 +49,9 @@ export const DashboardInsights = () => {
       bgColor: "bg-yellow-600"
     },
     {
-      title: "Sector Leader",
-      value: "Technology",
-      detail: "IT stocks surging",
+      title: "Active Stocks",
+      value: `${totalStocks}`,
+      detail: "In watchlist",
       icon: Target,
       color: "text-blue-400",
       bgColor: "bg-blue-600"
@@ -40,13 +59,15 @@ export const DashboardInsights = () => {
   ];
 
   const marketStats = [
-    { label: "NIFTY 50", value: "19,435.50", change: "+125.30", changePercent: "+0.65%" },
-    { label: "SENSEX", value: "65,220.30", change: "+420.75", changePercent: "+0.65%" },
-    { label: "BANK NIFTY", value: "44,180.25", change: "-85.40", changePercent: "-0.19%" },
+    { label: "NIFTY 50", value: "21,735.50", change: "+125.30", changePercent: "+0.58%" },
+    { label: "SENSEX", value: "72,240.30", change: "+420.75", changePercent: "+0.59%" },
+    { label: "BANK NIFTY", value: "46,180.25", change: "-85.40", changePercent: "-0.18%" },
   ];
 
   return (
     <div className="space-y-6">
+      <MarketStatus />
+      
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {insights.map((insight, index) => (
           <Card key={index} className="bg-slate-900 border-slate-800">
@@ -64,7 +85,7 @@ export const DashboardInsights = () => {
 
       <Card className="bg-slate-900 border-slate-800">
         <CardHeader>
-          <CardTitle className="text-white">Market Overview</CardTitle>
+          <CardTitle className="text-white">Indian Market Overview</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
