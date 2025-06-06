@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, TrendingUp, TrendingDown, Target, AlertTriangle, CheckCircle, XCircle } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, ScatterChart, Scatter, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Brain, TrendingUp, TrendingDown, Target, AlertTriangle, CheckCircle, XCircle, Activity, Zap } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, ScatterChart, Scatter, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, PieChart, Pie, Cell, AreaChart, Area, ComposedChart } from "recharts";
 
 const predictionData = [
   { name: "RELIANCE", confidence: 87, prediction: "STRONG BUY", targetPrice: 2650.50, currentPrice: 2420.30, upside: 9.5, risk: "Low" },
