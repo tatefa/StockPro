@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LogOut, Plus } from "lucide-react";
 import { Header } from "@/components/Header";
 import { PortfolioOverview } from "@/components/PortfolioOverview";
+import { DashboardInsights } from "@/components/DashboardInsights";
 import { StockList } from "@/components/StockList";
 import { NewsPanel } from "@/components/NewsPanel";
 import { MLPredictions } from "@/components/MLPredictions";
@@ -47,6 +48,7 @@ export const Dashboard = ({ onLogout }: DashboardProps) => {
           </TabsList>
 
           <TabsContent value="dashboard" className="space-y-6">
+            <DashboardInsights />
             <PortfolioOverview />
             <div className="grid lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2">

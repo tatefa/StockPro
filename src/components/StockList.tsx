@@ -1,22 +1,26 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, TrendingDown, Plus } from "lucide-react";
 import { StockChart } from "./StockChart";
-
-const stocks = [
-  { symbol: "RELIANCE", name: "Reliance Industries Ltd.", price: 2450.75, change: +45.30, changePercent: +1.88, prediction: "BUY" },
-  { symbol: "TCS", name: "Tata Consultancy Services", price: 3520.40, change: -32.15, changePercent: -0.90, prediction: "HOLD" },
-  { symbol: "INFY", name: "Infosys Limited", price: 1580.25, change: +28.50, changePercent: +1.84, prediction: "BUY" },
-  { symbol: "HDFCBANK", name: "HDFC Bank Limited", price: 1645.80, change: -15.60, changePercent: -0.94, prediction: "HOLD" },
-  { symbol: "ICICIBANK", name: "ICICI Bank Limited", price: 1125.30, change: +22.75, changePercent: +2.06, prediction: "BUY" },
-  { symbol: "ADANIPORTS", name: "Adani Ports & SEZ Ltd.", price: 785.60, change: +18.45, changePercent: +2.40, prediction: "STRONG BUY" },
-];
+import { AddStockDialog } from "./AddStockDialog";
+import { stockService, Stock } from "@/services/stockService";
 
 export const StockList = () => {
-  const [selectedStock, setSelectedStock] = useState<typeof stocks[0] | null>(null);
+  const [stocks, setStocks] = useState<Stock[]>([]);
+  const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
+
+  useEffect(() => {
+    // Initial load
+    setStocks(stockService.getStocks());
+
+    // Subscribe to real-time updates
+    const unsubscribe = stockService.subscribe(setStocks);
+
+    return unsubscribe;
+  }, []);
 
   const getPredictionColor = (prediction: string) => {
     switch (prediction) {
@@ -28,8 +32,13 @@ export const StockList = () => {
     }
   };
 
-  const handleStockClick = (stock: typeof stocks[0]) => {
+  const handleStockClick = (stock: Stock) => {
     setSelectedStock(stock);
+  };
+
+  const handleStockAdded = () => {
+    // Stock list will automatically update via subscription
+    console.log("Stock added successfully");
   };
 
   return (
@@ -37,10 +46,7 @@ export const StockList = () => {
       <Card className="bg-slate-900 border-slate-800">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-white">Stock Watchlist</CardTitle>
-          <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-            <Plus className="h-4 w-4 mr-2" />
-            Add Stock
-          </Button>
+          <AddStockDialog onStockAdded={handleStockAdded} />
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -54,15 +60,18 @@ export const StockList = () => {
                   <div>
                     <div className="font-semibold text-white text-lg">{stock.symbol}</div>
                     <div className="text-sm text-gray-400">{stock.name}</div>
+                    <div className="text-xs text-gray-500">
+                      Vol: {(stock.volume / 1000000).toFixed(2)}M | P/E: {stock.pe?.toFixed(1)}
+                    </div>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-6">
                   <div className="text-right">
-                    <div className="text-white font-semibold">₹{stock.price}</div>
+                    <div className="text-white font-semibold">₹{stock.price.toFixed(2)}</div>
                     <div className={`text-sm flex items-center ${stock.change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                       {stock.change >= 0 ? <TrendingUp className="h-3 w-3 mr-1" /> : <TrendingDown className="h-3 w-3 mr-1" />}
-                      {stock.change >= 0 ? '+' : ''}₹{stock.change} ({stock.changePercent}%)
+                      {stock.change >= 0 ? '+' : ''}₹{stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)
                     </div>
                   </div>
                   
