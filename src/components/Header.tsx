@@ -4,9 +4,10 @@ import { TrendingUp, LogOut, User } from "lucide-react";
 
 interface HeaderProps {
   onLogout: () => void;
+  onUserProfileClick: () => void;
 }
 
-export const Header = ({ onLogout }: HeaderProps) => {
+export const Header = ({ onLogout, onUserProfileClick }: HeaderProps) => {
   return (
     <header className="bg-slate-900 border-b border-slate-800 px-6 py-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -18,10 +19,14 @@ export const Header = ({ onLogout }: HeaderProps) => {
         </div>
 
         <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2 text-gray-300">
+          <Button
+            variant="ghost"
+            onClick={onUserProfileClick}
+            className="flex items-center space-x-2 text-gray-300 hover:bg-slate-800"
+          >
             <User className="h-5 w-5" />
-            <span>John Investor</span>
-          </div>
+            <span>Hi user</span>
+          </Button>
           <Button 
             variant="outline" 
             size="sm" 

@@ -9,6 +9,7 @@ import { StockList } from "@/components/StockList";
 import { NewsPanel } from "@/components/NewsPanel";
 import { MLPredictions } from "@/components/MLPredictions";
 import { Watchlist } from "@/components/Watchlist";
+import { UserProfile } from "@/components/UserProfile";
 
 interface DashboardProps {
   onLogout: () => void;
@@ -16,10 +17,14 @@ interface DashboardProps {
 
 export const Dashboard = ({ onLogout }: DashboardProps) => {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-slate-950">
-      <Header onLogout={onLogout} />
+      <Header 
+        onLogout={onLogout} 
+        onUserProfileClick={() => setIsUserProfileOpen(true)}
+      />
       
       <div className="container mx-auto px-6 py-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
@@ -70,6 +75,11 @@ export const Dashboard = ({ onLogout }: DashboardProps) => {
           </TabsContent>
         </Tabs>
       </div>
+
+      <UserProfile 
+        isOpen={isUserProfileOpen}
+        onClose={() => setIsUserProfileOpen(false)}
+      />
     </div>
   );
 };
