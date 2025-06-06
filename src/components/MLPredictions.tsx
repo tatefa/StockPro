@@ -1,11 +1,7 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ComposedChart, Area, AreaChart, Scatter, ScatterChart, Cell, PieChart, Pie } from "recharts";
-import { TrendingUp, Brain, Target, Activity, Zap, AlertCircle, CheckCircle, XCircle } from "lucide-react";
+import { Brain, TrendingUp, TrendingDown, Target, AlertTriangle, CheckCircle, XCircle } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, ScatterChart, Scatter, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
 
 const predictionData = [
   { name: "RELIANCE", confidence: 87, prediction: "STRONG BUY", targetPrice: 2650.50, currentPrice: 2420.30, upside: 9.5, risk: "Low" },
